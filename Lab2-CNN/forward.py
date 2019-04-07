@@ -6,10 +6,13 @@ import tensorflow as tf
 #实现类似LeNet-5模型
 
 INPUT_NODE = 3072
+#INPUT_NODE = 3072
 OUTPUT_NODE = 10
 
 IMAGE_SIZE = 32
+#IMAGE_SIZE = 28
 CHANNELS = 3
+#CHANNELS = 1
 LABELS = 10
 
 #第一层卷积层的尺寸和深度
@@ -32,6 +35,7 @@ def forward(input,train,regularizer):
 		#输入32*32*3 输出28*28*32
 		
 	conv1 = tf.nn.con2d(input,conv1_weights,strides=[1,1,1,1],padding = 'VALID')
+	#conv1 = tf.nn.con2d(input,conv1_weights,strides=[1,1,1,1],padding = 'SAME')
 	relu1 = tf.nn.relu(tf.nn.bias_add(conv1,conv1_biases))
 	
 	with tf.name_scope('layer2-pool1'):

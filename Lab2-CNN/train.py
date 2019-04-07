@@ -1,9 +1,10 @@
 import os
 import tensorflow as tf
-import forward
+import forward.py
 #加载forward.py中定义的常量和前向传播的函数
-
-BATCH_SIZE = 5
+import numpy as np
+from tensorflow.examples.tutorials.mnist import input_data
+BATCH_SIZE = 10000
 LEARNING_RATE = 0.8
 TRAINING_STEPS = 30000
 
@@ -34,16 +35,26 @@ def train(data_set):
 					minimize(loss,global_step=global_step)
 	
 	#初始化Tensorflow持久化类
-	
+	#data = input_data.read_data_sets('data/fashion'(data_set))
+	"""
+	x_list = []
+	y_list = []
+	for i in range(5):
+		data_batch = "data_batch_" + str(i)
+		with open("cifar-10-python\cifar-10-batches-py\(data_set)"+data_batch,'rb') as fo:
+			dict = pickle.load(fo,encoding='bytes')
+			x_list.append(dict['data'])
+			y_list.append(dict['labels'])
+	"""
 	saver = tf.train.Saver()
 	with tf.Session() as sess:
 		tf.initialize_all_variables().run()
 		
 		for i in range(TRAINING_STEPS):
 			#得到每一个batch的数据 xs ys
-			xs = 
-			ys = 
-			
+			xs = x_list[i % 5]
+			ys = y_list[i % 5]
+			#xs,ys = data.train.next_batch(BATCH_SIZE)
 			_, loss_value, step = sess.run([train_step,loss,global_step],
 											feed_dict = {x:xs,y_:ys})
 			
