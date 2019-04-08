@@ -6,7 +6,7 @@ import tensorflow as tf
 #实现类似LeNet-5模型
 
 INPUT_NODE = 3072
-#INPUT_NODE = 3072
+#INPUT_NODE = 784
 OUTPUT_NODE = 10
 
 IMAGE_SIZE = 32

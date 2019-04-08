@@ -1,5 +1,5 @@
-import forward.py
-import train.py
+import forward
+import train
 import tensorflow as tf
 import numpy as np
 import mnist_reader
@@ -11,7 +11,7 @@ def test(data_set,model_path):
 	tf.float32,[None,forward.LABELS],name ='y-input')
 	
 	#读取数据
-	with open("cifar-10-python\cifar-10-batches-py\(data_set)test_batch",'rb') as fo:
+	with open("cifar-10-python\cifar-10-batches-py\test_batch",'rb') as fo:
 			dict = pickle.load(fo,encoding='bytes')
 	xs = np.shape(dict[b'data'],(train.BATCH_SIZE,forward.IMAGE_SIZE,forward.IMAGE_SIZE,forward.CHANNELS))
 	validate_feed = {x:xs,y_:dict[b'labels']}
@@ -31,4 +31,4 @@ def test(data_set,model_path):
 	accuracy_score = sess.run(accuracy,feed_dict=validate_feed)
 	print("accuracy = %g" % (accuracy_score))
 	
-	
+test("cifar-10-python\cifar-10-batches-py\test_batch",)	

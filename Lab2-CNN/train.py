@@ -1,6 +1,6 @@
 import os
 import tensorflow as tf
-import forward.py
+import forward
 #加载forward.py中定义的常量和前向传播的函数
 import numpy as np
 from tensorflow.examples.tutorials.mnist import input_data
@@ -11,7 +11,7 @@ LEARNING_RATE = 0.8
 TRAINING_STEPS = 30000
 
 #模型保存的路径和文件名
-MODEL_SAVE_PATH = "/path/to/model"
+MODEL_SAVE_PATH = "model"
 MODEL_NAME = "model.ckpt"
 
 def train(data_set):
@@ -38,16 +38,15 @@ def train(data_set):
 	
 	#初始化Tensorflow持久化类
 	#data = input_data.read_data_sets('data/fashion'(data_set))
-	"""
 	x_list = []
 	y_list = []
 	for i in range(5):
-		data_batch = "data_batch_" + str(i)
-		with open("cifar-10-python\cifar-10-batches-py\(data_set)"+data_batch,'rb') as fo:
+		data_batch = "data_batch_" + str(i+1)
+		with open(data_set+data_batch,'rb') as fo:
 			dict = pickle.load(fo,encoding='bytes')
 			x_list.append(dict[b'data'])
 			y_list.append(dict[b'labels'])
-	"""
+
 	"""
 	x_list = []
 	y_list = []
@@ -80,4 +79,6 @@ def train(data_set):
 				      "batch is %g." % (step,loss_value))
 				
 				saver.save(sess,os.path.join(MODEL_SAVE_PATH,MODEL_NAME),global_step=global_step)
-			
+
+
+train("cifar-10-python\cifar-10-batches-py\")			
