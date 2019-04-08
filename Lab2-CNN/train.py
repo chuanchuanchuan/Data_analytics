@@ -4,6 +4,8 @@ import forward.py
 #加载forward.py中定义的常量和前向传播的函数
 import numpy as np
 from tensorflow.examples.tutorials.mnist import input_data
+import pickle
+import mnist_reader
 BATCH_SIZE = 10000
 LEARNING_RATE = 0.8
 TRAINING_STEPS = 30000
@@ -43,8 +45,16 @@ def train(data_set):
 		data_batch = "data_batch_" + str(i)
 		with open("cifar-10-python\cifar-10-batches-py\(data_set)"+data_batch,'rb') as fo:
 			dict = pickle.load(fo,encoding='bytes')
-			x_list.append(dict['data'])
-			y_list.append(dict['labels'])
+			x_list.append(dict[b'data'])
+			y_list.append(dict[b'labels'])
+	"""
+	"""
+	x_list = []
+	y_list = []
+	x_train,y_train = mnist_reader.load_mnist('data/fashion',kind = 'train')
+	for i in range(6):
+		x_list.append(x_train[i*10000:(i+1)*10000])
+		y_list.append(y_train[i*10000:(i+1)*10000])
 	"""
 	saver = tf.train.Saver()
 	with tf.Session() as sess:
@@ -54,9 +64,14 @@ def train(data_set):
 			#得到每一个batch的数据 xs ys
 			xs = x_list[i % 5]
 			ys = y_list[i % 5]
-			#xs,ys = data.train.next_batch(BATCH_SIZE)
+			"""
+			xs = x_list[i % 6]
+			ys = y_list[i % 6]
+			"""
+			reshape_xs = np.reshape(xs,(BATCH_SIZE,forward.IMAGE_SIZE,forward.IMAGE_SIZE,forward.CHANNELS))
+			
 			_, loss_value, step = sess.run([train_step,loss,global_step],
-											feed_dict = {x:xs,y_:ys})
+											feed_dict = {x:reshape_xs,y_:ys})
 			
 			#每1000轮保存一轮模型
 			
