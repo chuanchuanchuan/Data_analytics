@@ -1,8 +1,9 @@
 import os
 import gzip
-import numpy as np    
-def load_mnist(path, kind='train'):
+import numpy as np
 
+
+def load_mnist(path, kind='train'):
     """Load MNIST data from `path`"""
     labels_path = os.path.join(path,
                                '%s-labels-idx1-ubyte.gz'
@@ -20,4 +21,4 @@ def load_mnist(path, kind='train'):
                                offset=16).reshape(len(labels), 784)
 
     return images, labels
-	
+
