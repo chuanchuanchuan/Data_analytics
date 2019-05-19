@@ -25,7 +25,7 @@ def test(data_set, model_path):
         """
         x_test,y_test = mnist_reader.load_mnist(data_set,kind='t10k')
         xs = np.reshape(x_test[i*1000:(i+1)*1000],(1000,forward.IMAGE_SIZE,forward.IMAGE_SIZE,forward.CHANNELS),order='F')
-        validate_feed = {x:xs,y_:y_test[i*1000:(i+1)*1000]}
+        validate_feed = {x:xs/255,y_:y_test[i*1000:(i+1)*1000]}
         y = forward.forward(x, train=False)
 
         correct_prediction = tf.equal(tf.to_int64(tf.argmax(y, 1)), tf.to_int64(y_))

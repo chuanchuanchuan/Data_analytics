@@ -74,7 +74,7 @@ def train(data_set):
             
             reshape_xs = np.reshape(xs, (BATCH_SIZE, forward.IMAGE_SIZE, forward.IMAGE_SIZE, forward.CHANNELS),order='F')
             _, loss_value, step = sess.run([train_step, loss, global_step],
-                                           feed_dict={x: reshape_xs, y_: ys})
+                                           feed_dict={x: reshape_xs/255, y_: ys})
 
             # 每1000轮保存一轮模型
 
